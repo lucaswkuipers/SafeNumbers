@@ -1,10 +1,12 @@
 # SafeNumbers Swift Macro
 
-SafeNumbers is a Swift macro that enforces compile-time constraints on numeric types. It ensures that numbers declared with it are either positive or negative, as per your requirement. 
+SafeNumbers is a Swift macro that aims to provide compile-time constraints to numeric types.
+
+As of now it can enforce Positive and Negative (through their respective macros).
 
 ## Features
 - Compile-time checks for positivity and negativity
-- Supports both `Int` and `Double` types
+- Supports both `Int` and `Double` literals
 - Helps improve code safety and readability
 
 ## Requirements
@@ -39,7 +41,7 @@ Note that trying to pass non-positive values to `#Positive` or non-negative valu
 
 ## Documentation
 
-For more detailed documentation, refer to the source code which contains extensive comments and usage guidelines.
+For more detailed documentation, refer to the source code which contains extensive DocC comments and usage guidelines.
 
 ## Support
 If you find a bug or would like to request a new feature, please open a new issue.
