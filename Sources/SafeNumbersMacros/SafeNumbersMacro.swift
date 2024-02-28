@@ -2,6 +2,11 @@ import SwiftCompilerPlugin
 import SwiftSyntax
 import SwiftSyntaxMacros
 
+/// `PositiveMacro` is an `ExpressionMacro` that enforces a compile-time check for positive numbers.
+///
+/// This macro takes a numeric value as input and ensures that the value is positive. Providing a non-positive value will result in a compilation error.
+///
+/// - Note: This macro understands both `Int` and `Double` types.
 public struct PositiveMacro: ExpressionMacro {
     public static func expansion(
         of node: some FreestandingMacroExpansionSyntax,
@@ -28,6 +33,11 @@ public struct PositiveMacro: ExpressionMacro {
     }
 }
 
+/// `NegativeMacro` is an `ExpressionMacro` that enforces a compile-time check for negative numbers.
+///
+/// Similar to `PositiveMacro`, this macro takes a numeric value and ensures that it's negative. Providing a non-negative value will cause a compilation error.
+///
+/// - Note: This macro understands both `Int` and `Double` types.
 public struct NegativeMacro: ExpressionMacro {
     public static func expansion(
         of node: some FreestandingMacroExpansionSyntax,
