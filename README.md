@@ -11,10 +11,18 @@ As of now it can enforce Positive and Negative (through their respective macros)
 
 ## Requirements
 - Swift 5.9+
-- SwiftSyntax
 
 ## Installation
-First, make sure you have the latest version of Swift installed. Clone or download this repository to your local machine.
+
+### Swift Package Manager
+
+You can install SafeNumbers using the Swift Package Manager. To add SafeNumbers to your Xcode project, select `File` > `Add Package Dependencies`, and enter the following URL:
+
+```swift
+https://github.com/lucaswkuipers/SafeNumbers.git
+```
+
+You can then select to add the SafeNumbers Library to your desired target. Don't add the client executable.
 
 ## Usage
 Import the SafeNumbers module in your Swift file.
