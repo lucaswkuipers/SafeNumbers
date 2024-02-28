@@ -1,33 +1,64 @@
 import SwiftCompilerPlugin
 import SwiftSyntax
-import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-/// Implementation of the `stringify` macro, which takes an expression
-/// of any type and produces a tuple containing the value of that expression
-/// and the source code that produced the value. For example
-///
-///     #stringify(x + y)
-///
-///  will expand to
-///
-///     (x + y, "x + y")
-public struct StringifyMacro: ExpressionMacro {
+public struct PositiveMacro: ExpressionMacro {
     public static func expansion(
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
-    ) -> ExprSyntax {
-        guard let argument = node.argumentList.first?.expression else {
-            fatalError("compiler bug: the macro does not have any arguments")
+    ) throws -> ExprSyntax {
+        guard let description = node.argumentList.first?.expression.description else {
+            throw NoArgumentsError()
         }
 
-        return "(\(argument), \(literal: argument.description))"
+        let number: any Number
+        if let integerNumber = Int(description) {
+            number = integerNumber
+        } else if let doubleNumber = Double(description) {
+            number = doubleNumber
+        } else {
+            throw NotNumericError()
+        }
+
+        guard number.isPositive else {
+            throw NotPositiveError()
+        }
+
+        return "\(raw: number)"
     }
 }
+
+public struct NegativeMacro: ExpressionMacro {
+    public static func expansion(
+        of node: some FreestandingMacroExpansionSyntax,
+        in context: some MacroExpansionContext
+    ) throws -> ExprSyntax {
+        guard let description = node.argumentList.first?.expression.description else {
+            throw NoArgumentsError()
+        }
+
+        let number: any Number
+        if let integerNumber = Int(description) {
+            number = integerNumber
+        } else if let doubleNumber = Double(description) {
+            number = doubleNumber
+        } else {
+            throw NotNumericError()
+        }
+
+        guard number.isNegative else {
+            throw NotNegativeError()
+        }
+
+        return "\(raw: number)"
+    }
+}
+
 
 @main
 struct SafeNumbersPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        StringifyMacro.self,
+        PositiveMacro.self,
+        NegativeMacro.self
     ]
 }
